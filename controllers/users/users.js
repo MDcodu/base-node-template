@@ -24,27 +24,36 @@ exports.onLogin = async(req, res, next) => {
         }).then(user => {
             resolve(user)
         }).catch(err => {
+
             console.log(err);
         })
     });
 
+    //validation for the response of users
+
+
     //for Password Decryption
 
-    const match = await bcrypt.compare(req.body.password, userResponse[0].password);
+    if  (userResponse && userResponse.length > 0) {
+        const match = await bcrypt.compare(req.body.password,  userResponse[0].password);
 
-    if (match) {
-        res.status(201).json({
-            message: 'User Authentication Success',
-            post: userResponse[0]
-        });
+        if (match) {
+            res.status(201).json({
+                message: 'User Authentication Success',
+                post: userResponse[0]
+            });
+        } else {
+            res.status(201).json({
+                message: 'User Authentication Failed',
+                post: null
+            });
+        }
     } else {
-        res.status(400).json({
+        res.status(201).json({
             message: 'User Authentication Failed',
-            post: {}
+            post: null
         });
     }
-
-
 
 }
 
@@ -68,7 +77,7 @@ exports.createUser = async(req, res, next) => {
 
     if (isExisted && isExisted.length > 0) {
 
-        res.status(400).json({
+        res.status(201).json({
             message: 'User Already Existed',
             post: isExisted
         });  
