@@ -1,3 +1,5 @@
+// Sample Model Creation
+
 const Sequelize = require('sequelize');
 const sequelize = require('../../helpers/database');
 
@@ -8,6 +10,14 @@ const Users = sequelize.define('users', {
         allowNull: false,
         primaryKey: true
     },
+    idNo: {
+        type: Sequelize.STRING,
+        allowNull: true,
+    },
+    staffId: {
+        type: Sequelize.STRING,
+        allowNull: true,
+    },
     username: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -15,10 +25,6 @@ const Users = sequelize.define('users', {
     password: {
         type: Sequelize.STRING,
         allowNull: true,
-    },
-    accessType: {
-        type: Sequelize.JSON,
-        allowNull: false,
     },
     title: {
         type: Sequelize.JSON,
@@ -35,34 +41,6 @@ const Users = sequelize.define('users', {
     lastName: {
         type: Sequelize.STRING,
         allowNull: false,
-    },
-    nationalId: {
-        type: Sequelize.STRING,
-        allowNull: true,
-    },
-    companyId: {
-        type: Sequelize.STRING,
-        allowNull: true,
-    },
-    medicalId: {
-        type: Sequelize.STRING,
-        allowNull: true,
-    },
-    doctorId: {
-        type: Sequelize.STRING,
-        allowNull: true,
-    },
-    driverId: {
-        type: Sequelize.STRING,
-        allowNull: true,
-    },
-    proffessionId: {
-        type: Sequelize.STRING,
-        allowNull: true,
-    },
-    studentId: {
-        type: Sequelize.STRING,
-        allowNull: true,
     },
     gender: {
         type: Sequelize.JSON,
@@ -104,9 +82,9 @@ const Users = sequelize.define('users', {
         type: Sequelize.STRING,
         allowNull: true,
     },
-    photo: {
+    groups: {
         type: Sequelize.JSON,
-        allowNull: false,
+        allowNull: true,
     },
     createdById: {
         type: Sequelize.STRING,
@@ -123,11 +101,7 @@ const Users = sequelize.define('users', {
     updatedByName: {
         type: Sequelize.STRING,
         allowNull: false,
-    },
-    permission: {
-        type: Sequelize.JSON,
-        allowNull: false,
-    },
+    }
 });
 
 module.exports = Users;

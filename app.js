@@ -5,6 +5,7 @@ const sequelize = require('./helpers/database');
 
 const authUserInfoRoutes = require('./routes/auth/user-info');
 const authWindowsRoutes = require('./routes/auth/windows');
+const usersRoutes = require('./routes/users/users');
 
 const mailerRoutes = require('./routes/mailer/mailer');
 
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 
 app.use('/api/auth/windows-auth', authWindowsRoutes);
 app.use('/api/auth/user-info', authUserInfoRoutes);
+app.use('/api/users', usersRoutes);
 
 app.use('/api/mailer', mailerRoutes);
 
