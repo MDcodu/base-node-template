@@ -16,17 +16,36 @@ exports.getUsers = (req, res, next) => {
     });
 };
 
-exports.onLogin = (req, res, next) => {
-    Users.findAll({
-        where: { username: req.body.username, password: req.body.password}
-    }).then(user => {
+exports.onLogin = async(req, res, next) => {
+
+    const userResponse = await new Promise((resolve, reject) => { 
+        return Users.findAll({
+            where: { username: req.body.username}
+        }).then(user => {
+            resolve(user)
+        }).catch(err => {
+            console.log(err);
+        })
+    });
+
+    //for Password Decryption
+
+    const match = await bcrypt.compare(req.body.password, userResponse[0].password);
+
+    if (match) {
         res.status(201).json({
-            message: 'Post Success',
-            post: user
+            message: 'User Authentication Success',
+            post: userResponse[0]
         });
-    }).catch(err => {
-        console.log(err);
-    })
+    } else {
+        res.status(400).json({
+            message: 'User Authentication Failed',
+            post: {}
+        });
+    }
+
+
+
 }
 
 exports.createUser = async(req, res, next) => {
@@ -48,10 +67,12 @@ exports.createUser = async(req, res, next) => {
 
 
     if (isExisted && isExisted.length > 0) {
-        res.status(201).json({
+
+        res.status(400).json({
             message: 'User Already Existed',
             post: isExisted
         });  
+
     } else {
 
         // Password Encryption Using Bcrypt
@@ -61,7 +82,7 @@ exports.createUser = async(req, res, next) => {
               if (err) reject(err)
               resolve(hash)
             });
-          })
+        })
     
         Users.create({
             idNo: req.body.idNo,
