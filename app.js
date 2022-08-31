@@ -7,6 +7,7 @@ const authUserInfoRoutes = require('./routes/auth/user-info');
 const authWindowsRoutes = require('./routes/auth/windows');
 const usersRoutes = require('./routes/users/users');
 const userSessionRoutes = require('./routes/userssions/usersessions');
+const objectRoutes = require('./routes/objects/objects');
 
 const mailerRoutes = require('./routes/mailer/mailer');
 
@@ -33,6 +34,7 @@ app.use('/api/auth/windows-auth', authWindowsRoutes);
 app.use('/api/auth/user-info', authUserInfoRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/usersession', userSessionRoutes);
+app.use('/api/objects', objectRoutes);
 
 app.use('/api/mailer', mailerRoutes);
 
