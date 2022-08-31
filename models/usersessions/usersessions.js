@@ -34,6 +34,10 @@ const UserSessions = sequelize.define('usersessions', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    appState: {
+        type: Sequelize.JSON,
+        allowNull: true,
+    },
     createdById: {
         type: Sequelize.STRING,
         allowNull: false,
